@@ -5,16 +5,8 @@
  *
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
-public class P3{
-    private static int getLargestPalindrome(){      
-    	int pal;  
-    	for (int i = 997; i>= 100; i--){
-    		pal = i*1000 +inverseNum(i);
-    		
-    	}
-    }
-
-    private static inverseNum(int n){
+public class P4{
+    private static int inverseNum(int n){
     	int inv = 0;
     	while (n>0){
     		inv *= 10;
@@ -23,31 +15,36 @@ public class P3{
     	return inv;
     }
 
-    private static int[] getFactors(int n){
-    	int[] factors = new int[10]{1,1,1,1,1,1,1,1,1,1};
-    	int count = 0;
-    	if (n%2 == 0){
-	    	while(n%2 == 0){
-	    		factors[count] *= 2;
-	    		n/=2;}
-	    	count++;
-    	}
-
-    	for (int i = 3; n > 1 ;i+=2) {
-	    	if (n%i == 0){
-		    	while(n%i == 0){
-		    		factors[count] *= i;
-		    		n/=i;}
-		    	count++;
-	    	}
-    	}
-    	return factors;
+    private static boolean isProductOfTwo3DigitNumber(int n){
+        int factor = 1000;
+        while (--factor > 100){
+            if (n%factor == 0){
+                if (n/factor > 999)
+                    return false;
+                else if (n/factor > 99)
+                    return true;
+            }
+        }
+        return false;
     }
 
-    private static boolean isProductOfTwo
+    private static int getLargestPalindrome(){      
+    	int pal;  
+    	for (int i = 997; i>= 100; i--){
+    		pal = i*1000 +inverseNum(i);
+    		if (isProductOfTwo3DigitNumber(pal))
+    			return pal;
+    	}
+
+    	for (int i = 999; i>=100; i--){
+    		pal = i*100 + inverseNum(i/10);
+    		if (isProductOfTwo3DigitNumber(pal))
+    			return pal;
+    	}
+    	return -1;
+    }
 
     public static void main(String[] args) {
         System.out.println("the largest palindrome made from the product of two 3-digit numbers :" + getLargestPalindrome());
     }
 }
-‭
