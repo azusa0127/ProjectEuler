@@ -1,4 +1,12 @@
 #################
+## Compiled files
+#################
+.out
+.class
+.o
+
+
+#################
 ## Eclipse
 #################
 
@@ -214,3 +222,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+
