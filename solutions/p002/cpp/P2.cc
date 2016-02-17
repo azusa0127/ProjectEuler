@@ -10,17 +10,16 @@
  */
 int getEvenFibSumsBelow(int limit){
     int sum = 0;
-
-    int prev1 = 1,  prev2 = 1;
-    int next = prev1 + prev2;
+    int prev1 = 8,  prev2 = 2;
+    int next = 4*prev1 + prev2;
 
     while (next <= limit){
-        if (next % 2 == 0)
-            sum += next;
-        prev1 = prev2;
-        prev2 = next;
-        next = prev1+prev2;
+        sum += next;
+        prev2 = prev1;
+        prev1 = next;
+        next = 4*prev1 + prev2;
     }
+
     return sum;
 }
 

@@ -7,18 +7,14 @@
  * Created by Phoenix on 2016-02-12.
  */
 public class P1{
-    private static int getSumOfAllMultiplesOf3or5Below(int limit){
-        int sum = 0;
-        for (int i = 1; i*3 < limit; i++) {
-            sum += i*3;
-        }
 
-        for (int i = 1; i*5 < limit; i++) {
-            if ((i*5)%3 == 0)
-                continue;
-            sum += i*5;
-        }
-        return sum;
+	private static int sumsOfItemsDivisibleBy(int n, int limit){
+		int p = limit/n;
+		return n*p*(p+1)/2;
+	}
+
+    private static int getSumOfAllMultiplesOf3or5Below(int limit){
+    	return sumsOfItemsDivisibleBy(3,limit-1) + sumsOfItemsDivisibleBy(5,limit-1) - sumsOfItemsDivisibleBy(15,limit-1);
     }
 
     public static void main(String[] args) {
