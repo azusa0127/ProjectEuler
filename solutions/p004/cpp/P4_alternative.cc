@@ -15,30 +15,29 @@ int inverseNum(int n){
 	return inv;
 }
 
-bool isPalindrome(int n){
-	return (n == inverseNum(n));
+bool isProductOfTwo3DigitNumber(int n){
+    for (int factor = 999; factor*factor >= n;factor--)
+        if ((n%factor == 0) && (n/factor > 99))
+            return true;
+    return false;
 }
 
 int getLargestPalindrome(){      
-	int largestPalindrome = 0;
-
-	for(int a = 999; a > 100; a--){
-		int b, db;
-		if (a%11 != 0){
-			b = 990;
-			db = 11;
-		} else {
-			b = 999;
-			db = 1;
-		}
-		for(; b >= a; b-=db){
-			if (a*b <= largestPalindrome)
-				break;
-			else if(isPalindrome(a*b))
-				largestPalindrome = a*b;
-		}
+	int pal;  
+    //case of 6-digit palindrome
+	for (int i = 997; i>= 100; i--){
+		pal = i*1000 +inverseNum(i);
+		if (isProductOfTwo3DigitNumber(pal))
+			return pal;
 	}
-	return largestPalindrome;
+
+    //case of 5-digit palindrome
+	for (int i = 999; i>=100; i--){
+		pal = i*100 + inverseNum(i/10);
+		if (isProductOfTwo3DigitNumber(pal))
+			return pal;
+	}
+	return -1;
 }
 
 int main(void) {

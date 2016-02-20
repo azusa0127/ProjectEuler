@@ -15,33 +15,30 @@ public class P4{
     	return inv;
     }
 
-    private static boolean isProductOfTwo3DigitNumber(int n){
-        int factor = 1000;
-        while (--factor > 100){
-            if (n%factor == 0){
-                if (n/factor > 999)
-                    return false;
-                else if (n/factor > 99)
-                    return true;
-            }
-        }
-        return false;
+    private static boolean isPalindrome(int n){
+    	return (n == inverseNum(n));
     }
-
+ 
     private static int getLargestPalindrome(){      
-    	int pal;  
-    	for (int i = 997; i>= 100; i--){
-    		pal = i*1000 +inverseNum(i);
-    		if (isProductOfTwo3DigitNumber(pal))
-    			return pal;
-    	}
+    	int largestPalindrome = 0;
 
-    	for (int i = 999; i>=100; i--){
-    		pal = i*100 + inverseNum(i/10);
-    		if (isProductOfTwo3DigitNumber(pal))
-    			return pal;
+    	for(int a = 999; a > 100; a--){
+    		int b, db;
+    		if (a%11 != 0){
+    			b = 990;
+    			db = 11;
+    		} else {
+    			b = 999;
+    			db = 1;
+    		}
+    		for(; b >= a; b-=db){
+				if (a*b <= largestPalindrome)
+					break;
+				else if(isPalindrome(a*b))
+					largestPalindrome = a*b;
+			}
     	}
-    	return -1;
+    	return largestPalindrome;
     }
 
     public static void main(String[] args) {

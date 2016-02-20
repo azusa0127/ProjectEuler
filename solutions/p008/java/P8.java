@@ -47,8 +47,8 @@ public class P8{
                 ,0,5,8,8,6,1,1,6,4,6,7,1,0,9,4,0,5,0,7,7,5,4,1,0,0,2,2,5,6,9,8,3,1,5,5,2,0,0,0,5,5,9,3,5,7,2,9,7,2,5
                 ,7,1,6,3,6,2,6,9,5,6,1,8,8,2,6,7,0,4,2,8,2,5,2,4,8,3,6,0,0,8,2,3,2,5,7,5,3,0,4,2,0,7,5,2,9,6,3,4,5,0};
 
-    private static int buildProduct(int lead, int tail){
-    	int product = 1;
+    private static long buildProduct(int lead, int tail){
+    	long product = 1;
     	for (int i= lead;i< tail;i++ ) {
     		if (seq[i] != 0)
     			product *= seq[i];
@@ -58,17 +58,23 @@ public class P8{
     	return product;
     }
 
-    private static int getGreatestProduct(int adjDigits){
+    private static long getGreatestProduct(int adjDigits){
     	int lead = 0, tail = adjDigits;
-    	int product, greatestProduct = 0;
+    	long greatestProduct = 0;
 
-    	while (tail < seq.length){
-    		product = buildProduct(lead,tail);
-    		if (product > greatestProduct)
-    			greatestProduct = product;
-    		lead++, tail++;
-    	}
-    	return greatestProduct;
+        while(tail<seq.length){
+            if (seq[tail] == 0){
+                lead = tail+1;
+                tail = lead + adjDigits;
+                continue;
+            }
+
+            long product = buildProduct(++lead,++tail);
+
+            if (product > greatestProduct)
+                greatestProduct = product;
+        }
+        return greatestProduct;
     }
 
     public static void main(String[] args) {
