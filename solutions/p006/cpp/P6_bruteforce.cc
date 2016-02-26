@@ -8,9 +8,11 @@
 // Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
 
 int getDifferenceForFirst(int limit){
-	int sum = (limit+1)*limit/2;
-	int sum_sq = (2*limit+1)*(limit+1)*limit/6;
-	return sum*sum - sum_sq;
+	int sum = 0;
+	for (int i = 1; i< limit; i++)
+		for (int j= i+1; j<= limit; j++)
+			sum += i*j;
+	return 2*sum;
 }
 
 int main(void) {
