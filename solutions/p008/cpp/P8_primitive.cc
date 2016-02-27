@@ -47,38 +47,26 @@ int seq[] = {7,3,1,6,7,1,7,6,5,3,1,3,3,0,6,2,4,9,1,9,2,2,5,1,1,9,6,7,4,4,2,6,5,7
             ,0,5,8,8,6,1,1,6,4,6,7,1,0,9,4,0,5,0,7,7,5,4,1,0,0,2,2,5,6,9,8,3,1,5,5,2,0,0,0,5,5,9,3,5,7,2,9,7,2,5
             ,7,1,6,3,6,2,6,9,5,6,1,8,8,2,6,7,0,4,2,8,2,5,2,4,8,3,6,0,0,8,2,3,2,5,7,5,3,0,4,2,0,7,5,2,9,6,3,4,5,0};
 
-long buildProduct(int lead, int length){
-      long product = 1;
-      for (int i = 0; i < length; i++ ) {
-            if (!seq[lead + i])
-            	return 0;
-            product *= seq[lead + i];  	     
-      }
-      return product;
+long buildProduct(int lead, int tail){
+    long product = 1;
+    for (int i = lead; i < tail; i++)
+        product *= seq[i];
+    return product;
 }
       
 
 long getGreatestProduct(int adjDigits){
-      int lead = 0;
-      long greatestProduct = 0;
-      long product = 0;
-      int seq_length = sizeof(seq)/sizeof(*seq);
-      while(lead <= seq_length - adjDigits){
-            if (!seq[lead + adjDigits - 1]){ // jump over 0 terms at the tail
-                lead += adjDigits;
-                product = 0;
-                continue;
-            } else if (product){ // minimal modification to the product when possible
-            	product = product / seq[lead-1] * seq[lead+adjDigits-1];
-            } else 
-            	product = buildProduct(lead,adjDigits); // build product if product is 0;
+    int lead = 0, tail = adjDigits;
+    long greatestProduct = 0;
 
-            if (product > greatestProduct)
-                greatestProduct = product;
+    int seq_length = sizeof(seq)/sizeof(*seq);
 
-            lead++;
-      }
-      return greatestProduct;
+    while(tail <= seq_length){
+        long product = buildProduct(lead++,tail++);
+        if (product > greatestProduct)
+            greatestProduct = product;
+    }
+    return greatestProduct;
 }
 
 
